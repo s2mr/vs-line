@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.regex.*;
 
 class Main {
     
@@ -16,18 +17,54 @@ class Main {
     
 	public static void main(String[] args)
 	{
-        String exp = "(10+20)*(30-40)+50/2";
+        
+        int res = validateExp(args);
+        if (res != 0) {
+            System.err.println("エラーコード" + res + "で終了します。");
+            System.exit(res);
+        }
+        
+        String exp = args[0];
         String expRPN = infixNotationToRPN(exp);
         
         System.out.println(expRPN);
-        // System.out.println(arith.get('('));
         
         // String str = "10 20 + 30 40 - * 50 2 / +";
-        // solveAndPrintRPN(str);
+        int ans = solveRPN(expRPN);
+        System.out.println(ans);
 	}
     
-    public static String infixNotationToRPN(String exp) {
+    public static int validateExp(String[] args) {
         
+        // 与えられた引数が１つでない場合
+        if(args.length != 1) {
+            return 1;
+        }
+        
+        String exp = args[0];
+        exp = exp.replace(" ", "");
+        // 引数が空白のみの場合
+        if (exp.length()==0) {
+            return 1;
+        }
+        
+        System.out.println("exp: " + exp);
+        
+        String regex = "([0-9\\+\\-\\*/\\(\\)])+";
+        Pattern p = Pattern.compile(regex);
+
+        for (int i=0; i<exp.length(); i++) {
+            Character c = exp.charAt(i);
+            Matcher m = p.matcher(c.toString());
+            if (!m.find()) {
+                return 2;
+            }
+        }
+        
+        return 0;
+    }
+    
+    public static String infixNotationToRPN(String exp) {
         exp = exp.replace(" ", ""); //空白文字の除去
         exp = "(" + exp + ")";
         
@@ -62,20 +99,14 @@ class Main {
                 }
                 
                 // System.out.println(tmpNum);    
-                
             }
-            
-            
-            
         }
-        
         return ans;
     }
     
-    public static void solveAndPrintRPN(String expression) {
-        String[] arr = expression.split(" ", 0);
-
+    public static int solveRPN(String exp) {
         Deque <Integer> deque = new ArrayDeque <Integer>();
+        String[] arr =  exp.split(" ", 0);
         for(int i = 0; i < arr.length; i++)
         {
             int num;
@@ -111,6 +142,6 @@ class Main {
             }
         }
         
-        System.out.println(deque.poll());
+        return deque.poll();
     }
 }
