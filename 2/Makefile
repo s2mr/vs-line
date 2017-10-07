@@ -1,3 +1,3 @@
 run:
-	javac Main.java
-	java Main
+	javac EightQueensProblem.java
+	java EightQueensProblem
