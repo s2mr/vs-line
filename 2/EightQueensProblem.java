@@ -9,7 +9,7 @@ public class EightQueensProblem {
 	}
 	
 	public EightQueensProblem() {
-		board.setQueen(2,1,true);
+		// board.setQueen(2,1,true);
 		// System.out.println(board.toString());
 		// 
 		// System.out.println("isAttacked : " + board.isAttacked(2,1));
@@ -18,13 +18,17 @@ public class EightQueensProblem {
 	
 	public boolean dsf(int y) {
 		
+		System.out.println("[dsf] y = " + y);
+		
 		if (y==N) {
 			System.out.println(board.toString());
-			return false;
+			return true;
 		}
 		
 		for (int x=0; x<N; x++) {
 			if (!board.isAttacked(x, y)) {
+				System.out.println("[!isAttacked] x = " + x + " y = " + y);
+				System.out.println();
 				board.setQueen(x, y, true);
 				
 				if ( dsf(y+1) ) {
