@@ -1,20 +1,36 @@
 class Main {
 	private static final int N = 4;
 	
+	int[][] board = new int[N][N];
+	
 	public static void main(String[] args)
 	{
-        int[][] board = new int[N][N];
-		board = init(board);
+        
+		init(board);
+		
+		put(board);
+		
 		print(board);
 	}
 	
-	private static int[][] init(int[][] board) {
+	private static void init() {
 		for (int i=0; i<N; i++) {
 			for (int j=0; j<N; j++) {
-				board[i][j] = 0;
+				if (i==0 && j==0) {
+					board[i][j] = 1;
+				} else {
+					board[i][j] = 0;
+				}
 			}
 		}
-		return board;
+	}
+	
+	private static int[][] put(int i, int j) {
+		for (int i=0; i<N; i++) {
+			for (int j=0; j<N; j++) {
+					
+			}
+		}
 	}
 	
 	private static void print(int[][] board) {
