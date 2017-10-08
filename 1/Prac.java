@@ -48,11 +48,11 @@ class Main {
             return 1;
         }
         
-        System.out.println("exp: " + exp);
+        // System.out.println("exp: " + exp);
         
+        //不正な文字が含まれていないかチェック
         String regex = "([0-9\\+\\-\\*/\\(\\)])+";
         Pattern p = Pattern.compile(regex);
-
         for (int i=0; i<exp.length(); i++) {
             Character c = exp.charAt(i);
             Matcher m = p.matcher(c.toString());
@@ -60,6 +60,21 @@ class Main {
                 return 2;
             }
         }
+        
+        //括弧の数が合っているかチェック
+        int count=0;
+        for (int i=0; i<exp.length(); i++) {
+            char c = exp.charAt(i);
+            if (c=='(') {
+                count++;
+            } else if (c==')') {
+                count--;
+            }
+        }
+        if (count!=0) {
+            return 3;
+        }
+        
         
         return 0;
     }
@@ -93,6 +108,7 @@ class Main {
                 }
                 
                 if (c==')') {
+                    // '(' は出力しないため除去
                     deque.pop();
                 } else { 
                     deque.push(c);
