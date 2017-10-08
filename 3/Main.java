@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Map.Entry;
 
 public class Main {
     
@@ -17,9 +18,10 @@ public class Main {
     public Main() {
         
         frequency();
+        replacePrint();
     }
     
-    public void replace() {
+    public void replacePrint() {
         for (int i=0; i<source.length(); i++) {
             char c = source.charAt(i);
             try {
@@ -29,6 +31,7 @@ public class Main {
             
             System.out.print(c);
         }
+        System.out.println();
     }
     
     public void frequency() {
@@ -47,15 +50,20 @@ public class Main {
             frequency.put(c, count);
         }
         
-        for (Iterator<Map.Entry<Character, Integer>> it = frequency.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<Character, Integer> entry = it.next();
-            
+        // 降順で並べ替え
+        List<Entry<Character, Integer>> list_entries = new ArrayList<Entry<Character, Integer>>(frequency.entrySet());
+        Collections.sort(list_entries, new Comparator<Entry<Character, Integer>>() {
+            public int compare(Entry<Character, Integer> obj1, Entry<Character, Integer> obj2)
+            {
+                return obj2.getValue().compareTo(obj1.getValue());
+            }
+        });
+        
+        for (Entry<Character, Integer> entry : list_entries) {
             Character key = entry.getKey();
-            Integer  val = entry.getValue();
+            Integer val = entry.getValue();
             
             System.out.println(String.format("%c : %d   \t(%f%%)", key, val, Double.valueOf(val)/Double.valueOf(source.length())));
-        }
-        
-        // System.out.println(frequency);
+        }        
     }
 }
