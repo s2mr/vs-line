@@ -75,6 +75,19 @@ class Main {
             return 3;
         }
         
+        //演算子の数が合っているかチェック
+        count = 0;
+        for (int i=0; i<exp.length(); i++) {
+            char c = exp.charAt(i);
+            if (c=='+' || c=='-' || c=='*' || c=='/') {
+                count--;
+                continue;
+            }
+            count++;
+        }
+        if (count!=1) {
+            return 4;
+        }
         
         return 0;
     }
