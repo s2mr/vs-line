@@ -7,7 +7,32 @@ public class Main {
     
     static final Map<Character, Character> map = new HashMap<Character, Character>() {
         {
-            put('I', 'A');
+            put('A','.');
+            put('B','.');
+            put('C','.');
+            put('D','.');
+            put('E','.');
+            put('F','.');
+            put('G','.');
+            put('H','.');
+            put('I','.');
+            put('J','.');
+            put('K','.');
+            put('L','.');
+            put('M','.');
+            put('N','.');
+            put('O','.');
+            put('P','.');
+            put('Q','.');
+            put('R','.');
+            put('S','.');
+            put('T','.');
+            put('U','.');
+            put('V','.');
+            put('W','.');
+            put('X','.');
+            put('Y','.');
+            put('Z','.');
         }
     };
     
@@ -63,7 +88,7 @@ public class Main {
             Character key = entry.getKey();
             Integer val = entry.getValue();
             
-            System.out.println(String.format("%c : %d   \t(%f%%)", key, val, Double.valueOf(val)/Double.valueOf(source.length())));
+            System.out.println(String.format("%c : %d   \t(%f%%)", key, val, Double.valueOf(val)/Double.valueOf(source.length())*100));
         }        
     }
 }
