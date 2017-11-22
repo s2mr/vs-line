@@ -45,9 +45,39 @@ func getDepth(u: Int?) -> Int {
 	return d
 }
 
+func getType(index: Int) -> String {
+	let n = nodes[index]
+	
+	guard let _ = n.parent else {
+		return "root"
+	}
+	
+	guard let _ = n.left else {
+		return "leaf"
+	}
+	
+	return "internal node"
+}
+
+func getChildren(index: Int) -> String {
+	var s = "["
+	
+	if let l = nodes[index].left {
+		s += "\(l)"
+		
+		var r: Int? = nodes[l].right
+		while(r != nil) {
+			s += ", \(r!)"
+			r = nodes[r!].right
+		}
+	}
+	
+	return s + "]"
+}
+
 func printNode(_ nodes: [Node]) {
 	for (i,n) in nodes.enumerated() {
-		print("node \(i): parent = \(n.parent ?? -1), left = \(n.left ?? -1), right = \(n.right ?? -1)  depth = \(getDepth(u: i)), []")
+		print("node \(i): parent = \(n.parent ?? -1), depth = \(getDepth(u: i)), \(getType(index: i)), \(getChildren(index: i))")
 	}
 }
 
@@ -62,7 +92,7 @@ for line in lines {
 	nums.removeFirst() // ノード番号は取得済み
 	nums.removeFirst() // 子の数は利用しない
 	
-	nodes[nId].left = nums.first //
+	nodes[nId].left = nums.first
 	
 	for (i, num) in nums.enumerated() {
 		nodes[num].parent = nId
@@ -71,3 +101,4 @@ for line in lines {
 }
 
 printNode(nodes)
+
