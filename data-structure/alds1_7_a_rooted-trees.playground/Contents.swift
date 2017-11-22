@@ -31,14 +31,28 @@ struct Node {
 	}
 }
 
+var nodes: [Node] = []
+
+func getDepth(u: Int?) -> Int {
+	var u = u // 変更可能にする
+	var d = 0
+	
+	while(u != nil && nodes[u!].parent != nil) {
+		u = nodes[u!].parent
+		d += 1
+	}
+	
+	return d
+}
+
 func printNode(_ nodes: [Node]) {
 	for (i,n) in nodes.enumerated() {
-		print("node \(i): parent = \(n.parent ?? -1), left = \(n.left ?? -1), right = \(n.right ?? -1)  depth = ?, []")
+		print("node \(i): parent = \(n.parent ?? -1), left = \(n.left ?? -1), right = \(n.right ?? -1)  depth = \(getDepth(u: i)), []")
 	}
 }
 
 var lines = str.split(separator: "\n")
-var nodes: [Node] = [Node](repeatElement(Node(parent: nil, left: nil, right: nil), count: Int(lines[0])! )) // ノード保持配列の初期化
+nodes = [Node](repeatElement(Node(parent: nil, left: nil, right: nil), count: Int(lines[0])! )) // ノード保持配列の初期化
 lines.removeFirst() // ノードの個数を削除
 
 for line in lines {
