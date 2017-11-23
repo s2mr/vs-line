@@ -64,12 +64,22 @@ func getDepth(i: Int) -> Int {
 	return dep
 }
 
+func getType(i: Int) -> String {
+	if nodes[i].p == -1 {
+		return "root"
+	}
+	if nodes[i].l != -1 || nodes[i].r != -1 {
+		return "internal node"
+	}
+	return "leaf"
+}
+
 extension Array where Element==Node {
 	func printN() {
 		print("-------------NODE INFO-------------")
 		for (i,e) in self.enumerated() {
 //			print("node \(i): \tp = \(e.p)\tl = \(e.l)\tr = \(e.r)")
-			print("node \(i): \tparent = \(e.p)\tsibling = \(getSibling(i: i))\tdegree = \(getDegree(i: i))\t depth = \(getDepth(i: i))\t height = \(getHeight(i: i))\t type = ?")
+			print("node \(i): \tparent = \(e.p)\tsibling = \(getSibling(i: i))\tdegree = \(getDegree(i: i))\t depth = \(getDepth(i: i))\t height = \(getHeight(i: i))\t\(getType(i: i))")
 		}
 		print("-------------END-------------")
 	}
