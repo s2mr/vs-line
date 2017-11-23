@@ -26,7 +26,6 @@ func getSibling(i: Int) -> Int {
 }
 
 func getHeight(i: Int) -> Int {
-	var i=i
 	let node = nodes[i]
 	
 	var l=0, r=0
@@ -41,12 +40,25 @@ func getHeight(i: Int) -> Int {
 	return l>r ? l : r
 }
 
+func getDegree(i: Int) -> Int {
+	let node = nodes[i]
+	var deg=0
+	if node.l != -1 {
+		deg += 1
+	}
+	if node.r != -1 {
+		deg += 1
+	}
+	
+	return deg
+}
+
 extension Array where Element==Node {
 	func printN() {
 		print("-------------NODE INFO-------------")
 		for (i,e) in self.enumerated() {
 //			print("node \(i): \tp = \(e.p)\tl = \(e.l)\tr = \(e.r)")
-			print("node \(i): \tparent = \(e.p)\tsibling = \(getSibling(i: i))\tdegree = ?\t depth = ?\t height = \(getHeight(i: i))\t type = ?")
+			print("node \(i): \tparent = \(e.p)\tsibling = \(getSibling(i: i))\tdegree = \(getDegree(i: i))\t depth = ?\t height = \(getHeight(i: i))\t type = ?")
 		}
 		print("-------------END-------------")
 	}
