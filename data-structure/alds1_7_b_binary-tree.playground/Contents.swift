@@ -16,13 +16,17 @@ class Node {
 
 var nodes: [Node] = []
 
-func getSibling() {
-	
+func getSibling(i: Int) -> Int {
+	let node = nodes[i]
+	let p = node.p
+	if p == -1 {
+		return -1
+	}
+	return nodes[p].l==i ? nodes[p].r : nodes[p].l
 }
 
 func getHeight(i: Int) -> Int {
 	var i=i
-	var h = 0
 	let node = nodes[i]
 	
 	var l=0, r=0
@@ -42,7 +46,7 @@ extension Array where Element==Node {
 		print("-------------NODE INFO-------------")
 		for (i,e) in self.enumerated() {
 //			print("node \(i): \tp = \(e.p)\tl = \(e.l)\tr = \(e.r)")
-			print("node \(i): \tparent = \(e.p)\tsibling = ?\tdegree = ?\t depth = ?\t height = \(getHeight(i: i))\t type = ?")
+			print("node \(i): \tparent = \(e.p)\tsibling = \(getSibling(i: i))\tdegree = ?\t depth = ?\t height = \(getHeight(i: i))\t type = ?")
 		}
 		print("-------------END-------------")
 	}
