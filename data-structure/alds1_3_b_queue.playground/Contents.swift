@@ -21,11 +21,11 @@ class Queue<T> {
 		return arr.count-1 == tail
 	}
 	
-	func enqueue(_ i: T) {
+	func enqueue(_ t: T) {
 		if isFull() {
 			return
 		}
-		arr[tail] = i
+		arr[tail] = t
 		tail += 1
 	}
 	
@@ -37,6 +37,11 @@ class Queue<T> {
 		head += 1
 		return tmp
 	}
+}
+
+struct Process {
+	let name: String
+	var t: Int
 }
 
 let input = """
@@ -52,26 +57,24 @@ var lines = input.split(separator: "\n")
 let quantum = Int(lines.first!.split(separator: " ")[1])!
 lines.removeFirst()
 
-print("quantum ", quantum)
-
-let q = Queue(-1)
+let q: Queue<Process> = Queue(Process(name: "", t: 0))
 
 for l in lines {
 	let v = l.split(separator: " ")
-	q.enqueue(Int(v[1])!)
+	q.enqueue(Process(name: v[0].description, t: Int(v[1])!))
 }
 
 var passed = 0
 while(!q.isEmpty()) {
-	if var t = q.dequeue() {
-		let min = t > quantum ? quantum : t // 経過時間にquantumかプロセス時間のどちらかを加算するための値
-		t -= min
+	if var p = q.dequeue() {
+		let min = p.t > quantum ? quantum : p.t // 経過時間にquantumかプロセス時間のどちらかを加算するための値
+		p.t -= min
 		passed += min
 		
-		if t > 0 {
-			q.enqueue(t)
+		if p.t > 0 {
+			q.enqueue(p)
 		} else {
-			print(passed )
+			print("\(p.name) \(passed)")
 		}
 	}
 }
