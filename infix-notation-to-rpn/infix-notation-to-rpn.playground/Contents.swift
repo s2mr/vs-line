@@ -12,7 +12,16 @@ struct Node {
 extension Array where Element==Node {
 	func printN() {
 		for (i,e) in self.enumerated() {
-			print("node \(i): l = \(e.l ?? -1), r = \(e.r ?? -1), p = \(e.p ?? -1), v = \(e.v ?? "?")")
+			print("node \(i): l = \(e.l ?? -1) \tr = \(e.r ?? -1)\tp = \(e.p ?? -1)\tv = \(e.v ?? "?")")
+		}
+	}
+}
+
+extension Character {
+	var asciiValue: Int {
+		get {
+			let s = String(self).unicodeScalars
+			return Int(s[s.startIndex].value)
 		}
 	}
 }
@@ -22,8 +31,25 @@ str = str.replacingOccurrences(of: " ", with: "") // delete space
 
 var nodes: [Node] = []
 
-for s in str.unicodeScalars {
-	nodes.append(Node(l: nil, r: nil, p: nil, v: String(s) ))
+//for s in str.unicodeScalars {
+//	nodes.append(Node(l: nil, r: nil, p: nil, v: String(s) ))
+//}
+//for (i,s) in str.unicodeScalars.enumerated() {
+//	if !(s >= "0" && s <= "9") {
+//		// 演算子
+//		nodes[i].l = i-1 // print(s)
+//		nodes[i].r = i+1
+//
+//		//数字
+//		nodes[i-1].p = i
+//		nodes[i+1].p = i
+//	}
+//}
+
+enum Arith: Int {
+	case plus = 1
+	case minus = 1
 }
+
 
 nodes.printN()
