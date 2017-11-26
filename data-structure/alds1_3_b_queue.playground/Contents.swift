@@ -7,11 +7,11 @@ class Queue {
 	private var head = 0
 	private var tail = 0
 	
-	private func isEmpty() -> Bool {
+	func isEmpty() -> Bool {
 		return head == tail
 	}
 	
-	private func isFull() -> Bool {
+	func isFull() -> Bool {
 		return arr.count-1 == tail
 	}
 	
@@ -46,20 +46,27 @@ var lines = input.split(separator: "\n")
 let quantum = Int(lines.first!.split(separator: " ")[1])!
 lines.removeFirst()
 
-print(quantum)
+print("quantum ", quantum)
+
+let q = Queue()
 
 for l in lines {
 	let v = l.split(separator: " ")
-	
+	q.enqueue(Int(v[1])!)
 }
 
+var passed = 0
+while(!q.isEmpty()) {
+	var t = q.dequeue()
+	
+	let min = t > quantum ? quantum : t // 経過時間にquantumかプロセス時間のどちらかを加算するための値
+	t -= min
+	passed += min
+	
+	if t > 0 {
+		q.enqueue(t)
+	} else {
+		print(passed )
+	}
+}
 
-
-/*
-let q = Queue()
-q.enqueue(3)
-q.enqueue(5)
-
-q.dequeue()
-q.dequeue()
-*/
