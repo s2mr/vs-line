@@ -2,10 +2,16 @@
 
 import UIKit
 
-class Queue {
-	private var arr: [Int] = Array(repeating: -1, count: 100)
+class Queue<T> {
+	private var arr: [T] = []
 	private var head = 0
 	private var tail = 0
+	
+	init(_ t: T) {
+		for _ in 1...100 {
+			arr.append(t)
+		}
+	}
 	
 	func isEmpty() -> Bool {
 		return head == tail
@@ -15,7 +21,7 @@ class Queue {
 		return arr.count-1 == tail
 	}
 	
-	func enqueue(_ i: Int) {
+	func enqueue(_ i: T) {
 		if isFull() {
 			return
 		}
@@ -23,9 +29,9 @@ class Queue {
 		tail += 1
 	}
 	
-	func dequeue() -> Int {
+	func dequeue() -> T? {
 		if isEmpty() {
-			return -1
+			return nil
 		}
 		let tmp = arr[head]
 		head += 1
@@ -48,7 +54,7 @@ lines.removeFirst()
 
 print("quantum ", quantum)
 
-let q = Queue()
+let q = Queue(-1)
 
 for l in lines {
 	let v = l.split(separator: " ")
@@ -57,16 +63,16 @@ for l in lines {
 
 var passed = 0
 while(!q.isEmpty()) {
-	var t = q.dequeue()
-	
-	let min = t > quantum ? quantum : t // 経過時間にquantumかプロセス時間のどちらかを加算するための値
-	t -= min
-	passed += min
-	
-	if t > 0 {
-		q.enqueue(t)
-	} else {
-		print(passed )
+	if var t = q.dequeue() {
+		let min = t > quantum ? quantum : t // 経過時間にquantumかプロセス時間のどちらかを加算するための値
+		t -= min
+		passed += min
+		
+		if t > 0 {
+			q.enqueue(t)
+		} else {
+			print(passed )
+		}
 	}
 }
 
