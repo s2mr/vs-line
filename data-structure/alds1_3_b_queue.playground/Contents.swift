@@ -8,7 +8,7 @@ class Queue<T> {
 	private var tail = 0
 	
 	init(_ t: T) {
-		for _ in 1...100 {
+		for _ in 1...6 {
 			arr.append(t)
 		}
 	}
@@ -18,7 +18,7 @@ class Queue<T> {
 	}
 	
 	func isFull() -> Bool {
-		return arr.count-1 == tail
+		return head == (tail+1) % arr.count
 	}
 	
 	func enqueue(_ t: T) {
@@ -26,7 +26,11 @@ class Queue<T> {
 			return
 		}
 		arr[tail] = t
-		tail += 1
+		if tail + 1 < arr.count {
+			tail += 1
+		} else {
+			tail = 0
+		}
 	}
 	
 	func dequeue() -> T? {
@@ -34,7 +38,11 @@ class Queue<T> {
 			return nil
 		}
 		let tmp = arr[head]
-		head += 1
+		if head + 1 < arr.count {
+			head += 1
+		} else {
+			head = 0
+		}
 		return tmp
 	}
 }
