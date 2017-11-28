@@ -91,16 +91,16 @@ func hoge(_ node: Node) {
 		break
 	}
 	
-	print(l?.v ?? "")
+	print(l?.v ?? "", terminator: " ")
 	var p: Node? = l?.p
 	while p != nil {
-		print(p?.r?.v ?? "")
-		print(p?.v ?? "")
+		print(p?.r?.v ?? "", terminator: " ")
+		print(p?.v ?? "", terminator: " ")
 		p = p?.p
 	}
+	print()
 }
 
 let n = parseToTree(exp: input, node: nil)
-
 hoge(n)
 
