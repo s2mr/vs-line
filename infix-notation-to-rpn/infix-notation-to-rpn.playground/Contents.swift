@@ -68,7 +68,7 @@ func parseToTree(exp: String, node: Node?) -> Node {
 	
 	if index == 0 {
 		// exp に演算子が含まれない場合
-		print("str: \(exp)")
+//		print("str: \(exp)")
 		n.v = exp
 		n.p = node
 	} else {
@@ -81,5 +81,26 @@ func parseToTree(exp: String, node: Node?) -> Node {
 	return n
 }
 
+func hoge(_ node: Node) {
+	var l: Node? = node.l
+	while l != nil { // TODO: delete splace???
+		if let ul = l?.l {
+			l = ul
+			continue
+		}
+		break
+	}
+	
+	print(l?.v ?? "")
+	var p: Node? = l?.p
+	while p != nil {
+		print(p?.r?.v ?? "")
+		print(p?.v ?? "")
+		p = p?.p
+	}
+}
+
 let n = parseToTree(exp: input, node: nil)
-dump(n)
+
+hoge(n)
+
