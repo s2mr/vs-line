@@ -1,4 +1,5 @@
 //: Playground - noun: a place where people can play
+// 挿入ソート
 
 import UIKit
 
@@ -11,15 +12,14 @@ func insertionSort(A: [Int], N: Int) {
 	var A = A
 	print(A)
 	for i in 1...N-1 {
-		let v = A[i]
+		let v = A[i] // 1. 未ソート部分の先頭を取り出しｖに記録
 		var j = i - 1
 		
-		while j >= 0 && A[j] > v {
-			A[j+1] = A[j]
+		while j >= 0 && A[j] > v { // ソート済み部分よりも取り出したものvが小さい場合
+			A[j+1] = A[j] // ソート済み部分をひとつずつずらす
 			j -= 1
 		}
-		A[j+1] = v
-		print(A)
+		A[j+1] = v // 挿入
 	}
 }
 
