@@ -11,8 +11,10 @@ func selectionSort(A: inout [Int], N: Int) -> Int {
 				minj = j
 			}
 		}
-		A.swapAt(i, minj)
-		swapCount += 1
+		if i != minj {
+			A.swapAt(i, minj)
+			swapCount += 1
+		}
 	}
 	return swapCount
 }
